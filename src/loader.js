@@ -8,11 +8,23 @@ var loader = {
      *
      * @param container
      * @param modules
+     * @param baseDir
      */
     load : function (container, modules) {
-        var i, module, loadKey, dotPosition;
+        var i, j, module, loadKey, loadReference, dotPosition, directories, pathSegment;
         for (i = 0; i < modules.length; i++) {
             module = modules[i];
+
+            directories = module.split("/");
+            loadReference = container;
+
+            for (j = 0; j < directories.length - 1; j++) {
+                pathSegment = directories[j];
+                if (pathSegment !== "." && pathSegment !== "") {
+                    loadReference[pathSegment] = {};
+                    loadReference = loadReference[pathSegment];
+                }
+            }
 
             loadKey = path.basename(module);
             dotPosition = loadKey.lastIndexOf(".");
@@ -21,7 +33,7 @@ var loader = {
                 loadKey = loadKey.substring(0, dotPosition);
             }
 
-            container[loadKey] = require(module);
+            loadReference[loadKey] = require(module);
         }
     }
 };

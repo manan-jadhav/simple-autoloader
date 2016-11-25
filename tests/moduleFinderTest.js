@@ -40,10 +40,6 @@ describe("moduleFinder Tests", function () {
             modulesFinder.findAllLocalModules('./', function (files) {
                 assert.lengthOf(files, 3, "three matching modules are found");
 
-                assert.isOk(path.isAbsolute(files[0]));
-                assert.isOk(path.isAbsolute(files[1]));
-                assert.isOk(path.isAbsolute(files[2]));
-
                 assert.isOk(fs.existsSync(files[0]));
                 assert.isOk(fs.existsSync(files[1]));
                 assert.isOk(fs.existsSync(files[2]));

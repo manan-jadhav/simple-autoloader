@@ -7,8 +7,7 @@ function find(pattern, directory, goDown, callback) {
         pattern,
         {
             cwd: directory,
-            matchBase: goDown,
-            absolute: true
+            matchBase: goDown
         },
         function (err, files) {
             if (!err) {

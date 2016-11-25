@@ -1,8 +1,8 @@
 {
-  "name": "autoloader",
+  "name": "simple-autoloader",
   "version": "0.1.0",
-  "description": "Module Autoloader for Node.js",
-  "main": "autoloader.js",
+  "description": "Simple Module Autoloader for Node.js",
+  "main": "simple-autoloader.js",
   "scripts": {
     "test": "mocha tests"
   },
@@ -15,7 +15,7 @@
     "autoloader",
     "autoload"
   ],
-  "author": "CurosMJ <curos@curos.in>",
+  "author": "CurosMJ <curosmj@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/CurosMJ/node-autoloader/issues"

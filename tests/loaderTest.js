@@ -13,26 +13,24 @@ describe("moduleFinder Tests", function () {
     describe('finding local modules', function () {
         before(function () {
             mockery.enable();
-            mockery.registerMock('/a/b/c/lib/foo.js', {foo: "bar"});
-            mockery.registerMock('/a/b/c/lib/bar.js', {foo: "bar"});
+            mockery.registerMock('./z/lib/foo.js', {foo: "bar"});
+            mockery.registerMock('./a-b/c/lib/bar.js', {foo: "bar"});
+            mockery.registerMock('simple', {foo: "bar"});
         });
         it("should load into container", function () {
             var container = {};
 
-            loader.load(container, ["/a/b/c/lib/foo.js"]);
+            loader.load(container, ["./z/lib/foo.js"]);
+            assert.isOk(container.z.lib.foo, "module is loaded into correct place");
+            assert.deepEqual(container.z.lib.foo, {foo: "bar"});
 
-            assert.isOk(container["foo"], "module is loaded into correct place");
-            assert.isOk(container.foo, "module is loaded into correct place");
-            assert.deepEqual(container["foo"], {foo: "bar"});
+            loader.load(container, ["./a-b/c/lib/bar.js"]);
+            assert.isOk(container["a-b"].c.lib.bar, "module is loaded into correct place");
+            assert.deepEqual(container["a-b"].c.lib.bar, {foo: "bar"});
 
-            loader.load(container, ["/a/b/c/lib/bar.js"]);
-
-            assert.isOk(container["foo"], "module is loaded into correct place");
-            assert.isOk(container.foo, "module is loaded into correct place");
-            assert.deepEqual(container["foo"], {foo: "bar"});
-            assert.isOk(container["bar"], "module is loaded into correct place");
-            assert.isOk(container.bar, "module is loaded into correct place");
-            assert.deepEqual(container["bar"], {foo: "bar"});
+            loader.load(container, ["simple"]);
+            assert.isOk(container.simple, "module is loaded into correct place");
+            assert.deepEqual(container.simple, {foo: "bar"});
         });
         after(function () {
             mockery.deregisterAll();
