@@ -1,4 +1,4 @@
-#Simple Autoloader `v0.1.0`
+#Simple Autoloader `v0.1.1`
 #### Simple module autoloader for Node.js
 
 ### Installation
