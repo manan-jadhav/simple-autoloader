@@ -1,5 +1,6 @@
 #Simple Autoloader `v0.1.1`
 #### Simple module autoloader for Node.js
+[![Build Status](https://travis-ci.org/CurosMJ/simple-autoloader.svg?branch=master)](https://travis-ci.org/CurosMJ/simple-autoloader)
 
 ### Installation
 `npm install simple-autoloader --save`
