@@ -1,0 +1,33 @@
+{
+  "name": "autoloader",
+  "version": "0.1.0",
+  "description": "Module Autoloader for Node.js",
+  "main": "autoloader.js",
+  "scripts": {
+    "test": "mocha tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CurosMJ/node-autoloader.git"
+  },
+  "keywords": [
+    "node",
+    "autoloader",
+    "autoload"
+  ],
+  "author": "CurosMJ <curos@curos.in>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CurosMJ/node-autoloader/issues"
+  },
+  "homepage": "https://github.com/CurosMJ/node-autoloader#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0",
+    "mock-fs": "^3.12.1",
+    "mockery": "^2.0.0"
+  },
+  "dependencies": {
+    "glob": "^7.1.1"
+  }
+}
