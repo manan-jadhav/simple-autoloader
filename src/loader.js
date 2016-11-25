@@ -8,7 +8,6 @@ var loader = {
      *
      * @param container
      * @param modules
-     * @param baseDir
      */
     load : function (container, modules) {
         var i, j, module, loadKey, loadReference, dotPosition, directories, pathSegment;
@@ -21,7 +20,9 @@ var loader = {
             for (j = 0; j < directories.length - 1; j++) {
                 pathSegment = directories[j];
                 if (pathSegment !== "." && pathSegment !== "") {
-                    loadReference[pathSegment] = {};
+                    if (!loadReference[pathSegment]) {
+                        loadReference[pathSegment] = {};
+                    }
                     loadReference = loadReference[pathSegment];
                 }
             }
