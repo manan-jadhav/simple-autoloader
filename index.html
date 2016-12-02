@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Simple-autoloader by CurosMJ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Simple-autoloader</h1>
+      <h2 class="project-tagline">Module Autoloader for Node.js</h2>
+      <a href="https://github.com/CurosMJ/simple-autoloader" class="btn">View on GitHub</a>
+      <a href="https://github.com/CurosMJ/simple-autoloader/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/CurosMJ/simple-autoloader/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="simple-autoloader-v020" class="anchor" href="#simple-autoloader-v020" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Simple Autoloader <code>v0.2.0</code>
+</h1>
+
+<h4>
+<a id="simple-module-autoloader-for-nodejs" class="anchor" href="#simple-module-autoloader-for-nodejs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Simple module autoloader for Node.js</h4>
+
+<p><a href="https://travis-ci.org/CurosMJ/simple-autoloader"><img src="https://travis-ci.org/CurosMJ/simple-autoloader.svg?branch=master" alt="Build Status"></a></p>
+
+<h3>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h3>
+
+<p><code>npm install simple-autoloader --save</code></p>
+
+<h3>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h3>
+
+<h4>
+<a id="autoloading" class="anchor" href="#autoloading" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Autoloading</h4>
+
+<p>There are four methods available for autoloading :</p>
+
+<ul>
+<li>loadLocalModules() : Load all modules (js and json files) present in the current directory</li>
+<li>loadAllLocalModules() : Load all modules available in current directory (except node_modules) and its child directories recursively.</li>
+<li>loadInstalledModules(loadDevDependencies = false) : Load all dependencies defined in package.json. Pass <code>true</code> in loadDevDependencies to load devDependencies also.</li>
+<li>load([modules]) : Load modules provided in the array</li>
+</ul>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> modules <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">"</span>simple-autoloader<span class="pl-pds">"</span></span>);
+
+<span class="pl-c">// Autoloading Modules</span>
+
+<span class="pl-c">// Load all modules (js and json files) present in the current directory</span>
+<span class="pl-smi">modules</span>.<span class="pl-en">loadLocalModules</span>();
+
+<span class="pl-c">// Load all modules available in current directory (except node_modules)</span>
+<span class="pl-c">// and its child directories recursively.</span>
+<span class="pl-smi">modules</span>.<span class="pl-en">loadAllLocalModules</span>();
+
+<span class="pl-c">// Load all dependencies defined in package.json</span>
+<span class="pl-smi">modules</span>.<span class="pl-en">loadInstalledModules</span>();
+
+<span class="pl-c">// Load devDependencies also</span>
+<span class="pl-smi">modules</span>.<span class="pl-en">loadInstalledModules</span>(<span class="pl-c1">true</span>);
+
+<span class="pl-c">// Load specified modules</span>
+<span class="pl-smi">modules</span>.<span class="pl-c1">load</span>([<span class="pl-s"><span class="pl-pds">'</span>gulp<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>jade<span class="pl-pds">'</span></span>]);
+</pre></div>
+
+<h4>
+<a id="accessing-autoloaded-modules" class="anchor" href="#accessing-autoloaded-modules" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Accessing Autoloaded Modules</h4>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> modules <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">"</span>simple-autoloader<span class="pl-pds">"</span></span>);
+
+<span class="pl-smi">modules</span>.<span class="pl-en">loadAllLocalModules</span>();
+<span class="pl-smi">modules</span>.<span class="pl-c1">load</span>([<span class="pl-s"><span class="pl-pds">'</span>gulp<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>jade<span class="pl-pds">'</span></span>]);
+
+<span class="pl-c">// Reference to the gulp module</span>
+<span class="pl-smi">modules</span>.<span class="pl-smi">gulp</span>;
+
+
+<span class="pl-c">// Reference to the jade module</span>
+<span class="pl-smi">modules</span>.<span class="pl-smi">jade</span>;
+
+<span class="pl-c">/*</span>
+<span class="pl-c"></span>
+<span class="pl-c">Assume you have the following directory structure:</span>
+<span class="pl-c">index.js (the current file)</span>
+<span class="pl-c">lib/</span>
+<span class="pl-c">    a.js</span>
+<span class="pl-c">    b.js</span>
+<span class="pl-c">src/</span>
+<span class="pl-c">    a.js</span>
+<span class="pl-c">z.js</span>
+<span class="pl-c"></span>
+<span class="pl-c">*/</span>
+
+<span class="pl-c">// Using ./lib/a.js</span>
+<span class="pl-smi">modules</span>.<span class="pl-smi">lib</span>.<span class="pl-smi">a</span>;
+
+<span class="pl-c">// Using ./lib/b.js</span>
+<span class="pl-smi">modules</span>.<span class="pl-smi">lib</span>.<span class="pl-smi">b</span>;
+
+<span class="pl-c">// Using ./src/a.js</span>
+<span class="pl-smi">modules</span>.<span class="pl-smi">src</span>.<span class="pl-smi">a</span>;
+
+<span class="pl-c">// Using ./z.js</span>
+<span class="pl-smi">modules</span>.<span class="pl-c1">z</span>;</pre></div>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/CurosMJ/simple-autoloader">Simple-autoloader</a> is maintained by <a href="https://github.com/CurosMJ">CurosMJ</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
